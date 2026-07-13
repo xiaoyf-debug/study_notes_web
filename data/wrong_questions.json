@@ -1,0 +1,12 @@
+[
+  {
+    "subject": "程序设计",
+    "chapter": "循环结构",
+    "question": "遍历长度为 n 的数组时，循环边界应如何设置？",
+    "wrongAns": "i <= n",
+    "rightAns": "下标从 0 开始时使用 i < n。",
+    "errReason": "数组下标越界",
+    "collect": true,
+    "createTime": "2026/07/13 20:00:00"
+  }
+]

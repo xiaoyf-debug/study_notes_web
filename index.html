@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知识笔记库</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="page-header">
+        <div class="header-inner">
+            <h1>知识笔记库</h1>
+            <p class="sub-title">算法工程师个人知识沉淀空间</p>
+        </div>
+    </header>
+
+    <div class="page-wrap">
+        <!-- 左侧固定导航栏 -->
+        <aside class="sidebar">
+            <nav class="side-nav">
+                <div class="nav-item" id="homeBtn">总览</div>
+                <div class="nav-item" id="addNoteBtn">新增笔记</div>
+                <div class="nav-item" id="addQBtn">录入错题</div>
+                <div class="nav-item" id="statBtn">学习统计</div>
+                <div class="nav-item" id="exportBtn">导出数据</div>
+                <div class="nav-item" id="importBtn">导入数据</div>
+                <input type="file" id="importFile" accept="application/json,.json" hidden>
+            </nav>
+        </aside>
+
+        <!-- 右侧主内容区域 -->
+        <main class="main-content">
+            <!-- 首页 -->
+            <section class="page" id="homePage">
+                <div class="search-wrap">
+                    <input class="search-input" id="searchInput" placeholder="搜索学科、章节、标签">
+                    <button class="btn-text" id="searchBtn" type="button">搜索</button>
+                </div>
+
+                <div class="block">
+                    <h2>章节知识点</h2>
+                    <div class="list" id="noteList"></div>
+                </div>
+
+                <div class="block">
+                    <h2>经典/易错题</h2>
+                    <div class="list" id="qList"></div>
+                </div>
+            </section>
+
+            <!-- 统计页 -->
+            <section class="page hidden" id="statPage">
+                <div class="block">
+                    <h2>学习统计</h2>
+                    <div id="statCanvasBox"></div>
+                    <div id="statText"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 新增笔记弹窗（滚动结构） -->
+    <div class="mask noteMask hidden" id="noteModal">
+        <div class="modal">
+            <h3>新建知识点笔记</h3>
+            <!-- 可滚动表单容器 -->
+            <div class="modal-scroll-body">
+                <div class="upload-area" id="noteUpload">
+                    <input type="file" id="noteFile" accept=".txt,.md" hidden>
+                    <div class="upload-tip">拖拽 / 点击上传：TXT / MD 纯文本总结文档</div>
+                </div>
+                <div class="form-item">
+                    <label>学科</label>
+                    <input id="noteSubject" placeholder="例如：算法、高数">
+                </div>
+                <div class="form-item">
+                    <label>章节</label>
+                    <input id="noteChapter" placeholder="例如：动态规划">
+                </div>
+                <div class="form-item">
+                    <label>标签（逗号分隔）</label>
+                    <input id="noteTag" placeholder="代码,必考">
+                </div>
+                <div class="form-item">
+                    <label>内容（支持代码）</label>
+                    <textarea id="noteText" rows="6"></textarea>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn-text" id="saveNote" type="button">保存</button>
+                <button class="btn-text" id="closeNoteModal" type="button">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 录入错题弹窗（缩小尺寸+滚动容器，解决上下遮挡） -->
+    <div class="mask qMask hidden" id="qModal">
+        <div class="modal small-modal">
+            <h3>录入题目</h3>
+            <!-- 可滚动表单容器 -->
+            <div class="modal-scroll-body">
+                <div class="upload-area" id="qUpload">
+                    <input type="file" id="qFile" accept=".txt,.md" hidden>
+                    <div class="upload-tip">拖拽 / 点击上传题目 TXT/MD 文档</div>
+                </div>
+                <div class="form-item">
+                    <label>学科</label>
+                    <input id="qSubject">
+                </div>
+                <div class="form-item">
+                    <label>章节</label>
+                    <input id="qChapter">
+                </div>
+                <div class="form-item">
+                    <label>题干</label>
+                    <textarea id="qText" rows="3"></textarea>
+                </div>
+                <div class="form-item">
+                    <label>错误答案</label>
+                    <textarea id="wrongAns" rows="2"></textarea>
+                </div>
+                <div class="form-item">
+                    <label>正确解法</label>
+                    <textarea id="rightAns" rows="3"></textarea>
+                </div>
+                <div class="form-item">
+                    <label>错误类型/标签</label>
+                    <input id="errReason" placeholder="代码漏洞、计算失误">
+                </div>
+                <div class="form-item checkbox">
+                    <input type="checkbox" id="collectFlag">
+                    <label>标记重点题目</label>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn-text" id="saveQ" type="button">保存</button>
+                <button class="btn-text" id="closeQModal" type="button">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
